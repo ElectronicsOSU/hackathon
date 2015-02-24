@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html lang="en-US" class="no-js">
+<head>
+  <title>Makaethon Purchase Request Form</title>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+
+  <!-- Include the Google CSS package -->
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons.css">
+
+  <!-- You can also include your own CSS styles -->
+  <style>
+   form { margin: 40px auto; }
+   input { display:block; margin: 20px; }
+  </style>
+</head>
+<body>
+
+  <!-- This is the actual HTML form -->
+  <form id="makeathonBudgetRequest">
+
+      <!-- Text input field -->
+      <label>Your Name: <input required type="text" name="requestorName" placeholder="Your name.."></label>
+
+      <br/>
+
+      <label>Your email (name.number@...): <input required type="email" name="requestorEmail" placeholder="name.number@.."></label>
+
+      <br/>
+
+      <label for="task">Task:<br/>
+      <select name="task" required>
+        <option value="" selected disabled>Select a task...</option>
+        <optgroup label="Tasks">
+          <option value="Secure a location for the main event">Secure a location for the main event</option>
+          <option value="Hackathon Website for info/sign ups">Hackathon Website for info/sign ups</option>
+          <option value="Marketing for Sign Ups">Marketing for Sign Ups</option>
+          <option value="Texas Instruments Liason">Texas Instruments Liason</option>
+          <option value="Intel Liason">Intel Liason</option>
+          <option value="AwareAbility Liason">AwareAbility Liason</option>
+          <option value="Judging Procedure &amp; Criteria">Judging Procedure &amp; Criteria</option>
+          <option value="Food &amp; Snacks Coordinators">Food &amp; Snacks Coordinators</option>
+          <option value="Event Day Planner">Event Day Planner</option>
+          <option value="Marketing for Event &amp; Post-event">Marketing for Event &amp; Post-event</option>
+          <option value="Equipment and Components Setup">Equipment and Components Setup</option>
+          <option value="E-Council Volunteer Request">E-Council Volunteer Request</option>
+          <option value="Safety Rules &amp; Procedure">Safety Rules &amp; Procedure</option>
+          <option value="Budget Clarification">Budget Clarification</option>
+          <option value="Event Day &amp; Volunteer Coordinator">Event Day &amp; Volunteer Coordinator</option>
+          <option value="Feedback/Survey Manager - Students &amp; Sponsors">Feedback/Survey Manager - Students &amp; Sponsors</option>
+          <option value="Help Desk and Email Support">Help Desk and Email Support</option>
+          <option value="T-shirt Design">T-shirt Design</option>
+          <option value="Microsoft Liason">Microsoft Liason</option>
+        </optgroup>
+      </select></label>
+
+      <br/>
+      <br/>
+
+      <label>Exisiting Budget Name (New): <input type="text" name="budgetNameExisiting" placeholder="Budget name.." required></label>
+
+      <br/>
+
+      <label>Purpose (Short Description):<br/>
+        <textarea name="description" placeholder="Description of what you're wanting us to purchase.." rows="10" cols="80">
+        </textarea>
+      </label>
+
+      <br/>
+
+      <label>Desired Purchase Date: <input id="desireDate" required type="date" name="desireDate" placeholder="2011-01-13"></label>
+
+      <br/>
+
+      <label>Critical Purchase Date: <input id="requireDate" required type="date" name="requireDate" placeholder="2011-01-13"></label>
+
+      <br/>
+
+      <label>Total: <input required type="text" name="total" placeholder="Total.."></label>
+
+      <br/>
+
+      <!-- File input filed -->
+      <label>Company Quote or Itemized Budget (PDF only): <input required type="file" name="myFile"></label>
+
+      <!-- The submit button. It calls the server side function uploadfiles() on click -->
+      <input type="submit" value="Upload File"
+             onclick="this.value='Uploading..';
+                      google.script.run.withSuccessHandler(fileUploaded)
+                      .uploadFiles(this.parentNode);
+                      return false;">
+  </form>
+
+  <!-- Here the results of the form submission will be displayed -->
+  <div id="output"></div>
+
+  <!-- The function will be called after the Google Script has executed -->
+  <script>
+    var dateOptions = { dateFormat: "yy-mm-dd",
+    minDate: "2015-02-22",
+    maxDate: "2015-03-23" };
+    $(function() {
+      $( "#desireDate" ).datepicker(dateOptions);
+      $( "#requireDate" ).datepicker(dateOptions);
+    });
+    function fileUploaded(status) {
+      document.getElementById('myForm').style.display = 'none';
+      document.getElementById('output').innerHTML = status;
+    }
+  </script>
+</body>
+</html>
